@@ -1,0 +1,13 @@
+
+<form [formGroup]="baseForm">
+
+    <label for="my-name">My name: </label>
+    <input id="my-name" type="text" formControlName="name">
+
+  </form>
+
+  <button (click)="getForecast()">Показать погоду</button>
+  <h5>Погода:</h5>
+  <div *ngFor="let forecast of forecasts">
+    <p>День недели: {{forecast.dayName}}, температура: {{forecast.temperature}}</p>
+  </div>
