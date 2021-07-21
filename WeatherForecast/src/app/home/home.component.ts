@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { WeatherForecastServiceService } from '../weather-forecast-service.service';
-import { Forecast } from './forecast';
+import { Recipe, WeatherForecastService } from '../weather-forecast-service.service';
 
 
 @Component({
@@ -10,33 +9,21 @@ import { Forecast } from './forecast';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  forecasts: Forecast[] = [];
+  forecasts: string = "some string";
 
-  baseForm = new FormGroup({
-    name: new FormControl(''),
-  });
+  recipe: Recipe | undefined;
 
-
-  heroes: any = [
-    { id: 11, name: 'Dr Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
-  ];
-
-  constructor(private weatherForecastServiceService: WeatherForecastServiceService) {
+  constructor(private weatherForecastServiceService: WeatherForecastService) {
   }
 
   ngOnInit(): void {
   }
 
   getForecast(): void {
-    this.forecasts = this.weatherForecastServiceService.getForecast();    
+    this.weatherForecastServiceService.getForecast().subscribe(data => this.forecasts = data);
+  }
+
+  getRecipe(): void {
+    this.weatherForecastServiceService.getRecipes().subscribe(data => this.recipe = data);
   }
 }
